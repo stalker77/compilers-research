@@ -12,9 +12,11 @@ import java.io.IOException;
 public class PrefixExprParser {
 	private final CharSequence charSequence;
 	private char lookahead;
+	private int position;
 
 	public PrefixExprParser(CharSequence charSequence) {
 		this.charSequence = charSequence;
+		this.position = 0;
 	}
 
 	public void parse() throws ParseException {
@@ -36,7 +38,7 @@ public class PrefixExprParser {
 				match('a');
 				break;
 			default:
-				throw new ParseException("Syntax error");
+				throw new ParseException("Syntax error", position, "[+-a]", String.valueOf(lookahead));
 		}
 	}
 
@@ -44,12 +46,13 @@ public class PrefixExprParser {
 		if (lookahead == terminal) {
 			lookahead = nextTerminal();
 		} else {
-			throw new ParseException("Syntax error");
+			throw new ParseException("Syntax error", position, String.valueOf(terminal), String.valueOf(lookahead));
 		}
 	}
 
 	private char nextTerminal() throws ParseException {
 		try {
+			position++;
 			return charSequence.getNextChar();
 		} catch (IOException e) {
 			throw new ParseException(e);

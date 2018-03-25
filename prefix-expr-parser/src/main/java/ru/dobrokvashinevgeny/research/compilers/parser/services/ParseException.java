@@ -15,6 +15,16 @@ public class ParseException extends Exception {
 	}
 
 	/**
+	 * Создает <code>ParseException</code> с указанным
+	 * детализирующим сообщением.
+	 *
+	 * @param message детализирующее сообщение.
+	 */
+	public ParseException(String message, int position, String expectedSymbols, String foundSymbols) {
+		super(message + " in position: " + position + ". Expected: " + expectedSymbols + ", but found: " + foundSymbols);
+	}
+
+	/**
 	 * Создает новое исключение с указанным детализирующим сообщением и
 	 * причиной.
 	 *

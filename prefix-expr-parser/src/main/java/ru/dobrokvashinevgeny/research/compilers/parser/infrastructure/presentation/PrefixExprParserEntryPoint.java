@@ -5,8 +5,8 @@
 package ru.dobrokvashinevgeny.research.compilers.parser.infrastructure.presentation;
 
 import ru.dobrokvashinevgeny.research.compilers.parser.infrastructure.PrefixExprParserApplication;
-import ru.dobrokvashinevgeny.research.compilers.parser.services.*;
 import ru.dobrokvashinevgeny.research.compilers.parser.services.CharSequence;
+import ru.dobrokvashinevgeny.research.compilers.parser.services.*;
 
 import java.io.IOException;
 
@@ -19,7 +19,7 @@ public class PrefixExprParserEntryPoint {
 
 		PrefixExprParser parser = application.createParser();
 
-		System.out.println("Enter prefix expression(must contain only: +, -, a):");
+		System.out.println("Enter expression appropriate to grammar [S -> + S S | - S S | a]:");
 		parser.parse();
 	}
 
