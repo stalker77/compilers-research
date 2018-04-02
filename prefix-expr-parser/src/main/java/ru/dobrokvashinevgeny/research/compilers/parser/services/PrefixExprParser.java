@@ -24,6 +24,15 @@ public class PrefixExprParser {
 		S();
 	}
 
+	private char nextTerminal() throws ParseException {
+		try {
+			position++;
+			return charSequence.getNextChar();
+		} catch (IOException e) {
+			throw new ParseException(e);
+		}
+	}
+
 	private void S() throws ParseException {
 		switch(lookahead) {
 			case '+':
@@ -47,15 +56,6 @@ public class PrefixExprParser {
 			lookahead = nextTerminal();
 		} else {
 			throw new ParseException("Syntax error", position, String.valueOf(terminal), String.valueOf(lookahead));
-		}
-	}
-
-	private char nextTerminal() throws ParseException {
-		try {
-			position++;
-			return charSequence.getNextChar();
-		} catch (IOException e) {
-			throw new ParseException(e);
 		}
 	}
 }

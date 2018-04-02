@@ -12,12 +12,26 @@ import ru.dobrokvashinevgeny.research.compilers.parser.services.*;
  */
 public class PrefixExprParserApplication {
 	private final CharSequence charSequence;
+	private final DisplayService displayService;
 
-	public PrefixExprParserApplication(CharSequence charSequence) {
+	public PrefixExprParserApplication(CharSequence charSequence, DisplayService displayService) {
 		this.charSequence = charSequence;
+		this.displayService = displayService;
 	}
 
-	public PrefixExprParser createParser() {
+	public void run() {
+		PrefixExprParser parser = this.createParser();
+
+		displayService.showString("Enter expression appropriate to grammar [S -> + S S | - S S | a]:");
+
+		try {
+			parser.parse();
+		} catch (ParseException e) {
+			displayService.showString(e.toString());
+		}
+	}
+
+	private PrefixExprParser createParser() {
 		return new PrefixExprParser(charSequence);
 	}
 }

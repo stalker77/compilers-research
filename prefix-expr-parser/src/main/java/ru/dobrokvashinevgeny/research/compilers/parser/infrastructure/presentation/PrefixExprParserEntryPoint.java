@@ -14,13 +14,11 @@ import java.io.IOException;
  * Класс PrefixExprParserEntryPoint
  */
 public class PrefixExprParserEntryPoint {
-	public static void main(String[] args) throws ParseException {
-		PrefixExprParserApplication application = new PrefixExprParserApplication(getCharSequence());
+	public static void main(String[] args) {
+		PrefixExprParserApplication application = new PrefixExprParserApplication(getCharSequence(),
+			getDisplayService());
 
-		PrefixExprParser parser = application.createParser();
-
-		System.out.println("Enter expression appropriate to grammar [S -> + S S | - S S | a]:");
-		parser.parse();
+		application.run();
 	}
 
 	private static CharSequence getCharSequence() {
@@ -28,6 +26,15 @@ public class PrefixExprParserEntryPoint {
 			@Override
 			public char getNextChar() throws IOException {
 				return (char)System.in.read();
+			}
+		};
+	}
+
+	private static DisplayService getDisplayService() {
+		return new DisplayService() {
+			@Override
+			public void showString(String stringToShow) {
+				System.out.println(stringToShow);
 			}
 		};
 	}
